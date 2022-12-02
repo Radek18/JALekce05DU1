@@ -31,7 +31,7 @@ public class FlowerList {
         plants.remove(index);
     }
 
-    public void readPlantsFromFile (String VSTUP) throws FileNotFoundException, PlantExpection {
+    public void readPlantsFromFile (String input) throws FileNotFoundException, PlantException {
 
         int lineNumber = 0;
         String nextLine;
@@ -44,11 +44,11 @@ public class FlowerList {
         LocalDate planted;
         LocalDate watering;
 
-        try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(Settings.VSTUP())))) {
+        try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(input)))) {
             while (scanner.hasNextLine()) {
                 lineNumber++;
                 nextLine = scanner.nextLine();
-                items = nextLine.split(Settings.DELIMITER());
+                items = nextLine.split(Settings.delimiter());
                 name = items[0];
                 notes = items[1];
                 frequencyOfWatering = Integer.parseInt(items[2]);
@@ -58,24 +58,24 @@ public class FlowerList {
                 plants.add(newPlant);
             }
         } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("Nepodařilo se najít soubor (" + Settings.VSTUP() + ").");
+            throw new PlantException("Nepodařilo se najít soubor (" + Settings.input() + ").");
         } catch (NumberFormatException e) {
-            throw new PlantExpection("Nesprávný formát frekvence zálivky (" + items[2] + ") na řádku: " + lineNumber);
+            throw new PlantException("Nesprávný formát frekvence zálivky (" + items[2] + ") na řádku: " + lineNumber);
         } catch (DateTimeParseException e) {
-            throw new PlantExpection("Nesprávný formát data zasazení rostliny nebo data poslední zálivky (" + items[3] + " " + items[4] + ") na řádku: " + lineNumber);
+            throw new PlantException("Nesprávný formát data zasazení rostliny nebo data poslední zálivky (" + items[3] + " " + items[4] + ") na řádku: " + lineNumber);
         }
 
     }
 
-    public void writePlantsToFile (String VYSTUP) throws PlantExpection {
+    public void writePlantsToFile (String output) throws PlantException {
 
-        try (PrintWriter writer = new PrintWriter(new FileWriter(Settings.VYSTUP()))) {
+        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(output)))) {
             for (Plant plant : plants) {
-                String outputLine = plant.getName() + Settings.DELIMITER() + plant.getNotes() + Settings.DELIMITER() + plant.getFrequencyOfWatering() + Settings.DELIMITER() + plant.getWatering() + Settings.DELIMITER() + plant.getPlanted();
+                String outputLine = plant.getName() + Settings.delimiter() + plant.getNotes() + Settings.delimiter() + plant.getFrequencyOfWatering() + Settings.delimiter() + plant.getWatering() + Settings.delimiter() + plant.getPlanted();
                 writer.println(outputLine);
             }
         } catch (IOException e) {
-            throw new PlantExpection("Nastala chyba při zápisu do souboru");
+            throw new PlantException("Nastala chyba při zápisu do souboru.");
         }
 
     }

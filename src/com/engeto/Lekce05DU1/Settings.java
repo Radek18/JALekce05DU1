@@ -2,21 +2,21 @@ package com.engeto.Lekce05DU1;
 
 public class Settings {
 
-    private static final String VSTUP = "kvetiny.txt";
+    private static final String INPUT = "kvetiny.txt";
 
-    private static final String VYSTUP = "kvetiny-vystup.txt";
+    private static final String OUTPUT = "kvetiny-vystup.txt";
 
     private static final String DELIMITER = "\t";
 
-    public static String VSTUP() {
-        return VSTUP;
+    public static String input() {
+        return INPUT;
     }
 
-    public static String VYSTUP() {
-        return VYSTUP;
+    public static String output() {
+        return OUTPUT;
     }
 
-    public static String DELIMITER() {
+    public static String delimiter() {
         return DELIMITER;
     }
 
