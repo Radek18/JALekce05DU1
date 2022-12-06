@@ -57,9 +57,11 @@ public class Main {
 
         System.out.println("\n- Výpis dat zasazení rostlin:");
 
-        Set<Plant> planted = new HashSet<>(copyOfFlowerList);
+        Set<LocalDate> planted = new HashSet<>();
 
-        for (Plant plant : planted) System.out.println(plant.getPlanted().format(DateTimeFormatter.ofPattern("dd. MM. yyyy")));
+        for (Plant plant : copyOfFlowerList) planted.add(plant.getPlanted());
+
+        for (LocalDate date : planted) System.out.println(date.format(DateTimeFormatter.ofPattern("dd. MM. yyyy")));
 
     }
 

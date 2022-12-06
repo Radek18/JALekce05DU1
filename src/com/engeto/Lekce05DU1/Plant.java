@@ -2,7 +2,6 @@ package com.engeto.Lekce05DU1;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 public class Plant implements Comparable<Plant>{
 
@@ -21,11 +20,11 @@ public class Plant implements Comparable<Plant>{
     }
 
     public Plant(String name, LocalDate planted, int frequencyOfWatering) throws PlantException {
-        this(name, null, planted, LocalDate.now(), frequencyOfWatering);
+        this(name, "", planted, LocalDate.now(), frequencyOfWatering);
     }
 
     public Plant(String name) throws PlantException {
-        this(name, null, LocalDate.now(), LocalDate.now(), 7);
+        this(name, "", LocalDate.now(), LocalDate.now(), 7);
     }
 
     public String getName() {
@@ -81,19 +80,6 @@ public class Plant implements Comparable<Plant>{
     @Override
     public int compareTo(Plant secondPlant) {
         return this.getName().compareTo(secondPlant.getName());
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Plant plant = (Plant) o;
-        return Objects.equals(planted, plant.planted);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(planted);
     }
 
 }
